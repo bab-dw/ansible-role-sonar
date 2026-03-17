@@ -67,7 +67,7 @@
     - name: Unzip Sonar.
       unarchive:
         src: "{{ workspace }}/{{ sonar_version_directory }}.zip"
-        dest: /usr/local/
+        dest: "{{ sonar_tmp_dest | default('/usr/local/') }}"
         remote_src: yes
         creates: "/usr/local/{{ sonar_version_directory }}/lib/sonar-application-{{ sonar_version }}.jar"
 
@@ -113,7 +113,7 @@
 
     - name: Move Sonar into place.
       copy:
-        src: "/usr/local/{{ sonar_version_directory }}/"
+        src: "{{ sonar_tmp_dest | default('/usr/local/') }}/{{ sonar_version_directory }}/"
         dest: "/usr/local/sonar"
         remote_src: true
       when: sonar_install_method == 'copy'
