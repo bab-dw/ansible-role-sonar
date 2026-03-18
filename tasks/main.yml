@@ -120,7 +120,7 @@
 
     - name: Clean the source folder.
       file:
-        path: /usr/local/{{ sonar_version_directory }}
+        path: "{{ sonar_unzip_tmp_dest }}/{{ sonar_version_directory }}"
         state: absent
       when: sonar_install_method == 'copy'
 
